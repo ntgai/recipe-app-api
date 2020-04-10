@@ -8,8 +8,8 @@ class ModelTests(TestCase):
 		email = 'test@ntg.ai'
 		password = 'passntgai'
 		user = get_user_model().objects.create_user(
-			email = email,
-			password = password
+			email=email,
+			password=password
 		)
 
 		self.assertEqual(user.email, email)
