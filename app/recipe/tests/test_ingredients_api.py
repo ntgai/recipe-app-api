@@ -9,7 +9,7 @@ from core.models import Ingredient
 from recipe.serializers import IngredientSerializer
 
 
-INGREDIENTS_URL = reverse('recipe:ingredients-list')
+INGREDIENTS_URL = reverse('recipe:ingredient-list')
 
 
 class PublicIngredientsAPITests(TestCase):
@@ -43,7 +43,6 @@ class PrivateIngredientsAPITests(TestCase):
 		Ingredient.objects.create(user=self.user, name="Pamador")
 
 		res = self.client.get(INGREDIENTS_URL)
-		print(res)
 
 		ingredients = Ingredient.objects.all().order_by('-name')
 		serializer = IngredientSerializer(ingredients, many=True)
@@ -51,7 +50,6 @@ class PrivateIngredientsAPITests(TestCase):
 		self.assertEqual(res.status_code, status.HTTP_200_OK)
 		self.assertEqual(res.data, serializer.data)
 
-		print(res.data)
 
 	def test_ingredients_limited_to_user(self):
 		"""Test that ingredients for the authenticated user are returned"""
@@ -70,4 +68,3 @@ class PrivateIngredientsAPITests(TestCase):
 		self.assertEqual(res.data[0]['name'], ingredient.name)
 
 
-		
